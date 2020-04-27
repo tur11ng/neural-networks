@@ -21,6 +21,7 @@ from keras.regularizers import l1
 from scipy.stats import norm
 from sklearn.preprocessing import OneHotEncoder
 from keras.optimizers import SGD
+from keras.callbacks import EarlyStopping
 from pandas.plotting import table
 from sklearn.preprocessing import MinMaxScaler
 
@@ -76,6 +77,9 @@ def tnt(X, Y, h, epochs, lr=0.01, m=0., rg=None):
 
     # Train model
     for i, (train, test) in enumerate(kfold.split(X)):
+        # es = EarlyStopping(monitor='val_loss', mode='min')
+        # history = model.fit(X[train], Y[train], epochs=epochs,
+        #             batch_size=10, verbose=0, validation_data=(X[test], Y[test]), callbacks=[es])
         history = model.fit(X[train], Y[train], epochs=epochs,
                             batch_size=10, verbose=0, validation_data=(X[test], Y[test]))
 
